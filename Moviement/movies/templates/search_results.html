@@ -1,0 +1,29 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    {% if object_list.all %}
+    <div style="line-height: 0;
+                -webkit-column-count:4; /* split it into 5 columns */
+                -webkit-column-gap:8px; /* give it a 5px gap between columns */
+                -moz-column-count:4;
+                -moz-column-gap:8px;
+                column-count:4;
+                column-gap:8px;
+                padding: 0 20px;">
+        {% for movie in object_list %}
+            <div>
+                <a href="{% url 'movies:detail' slug=movie.slug %}">
+                <img src="{{movie.thumb.url}}" style="width: 100% ;
+                                            height: auto ;
+                                            margin-bottom:  8px;
+                                            cursor: pointer;
+                                            border: 1px solid white;" >
+                </a>
+            </div>
+        <!-- {% empty %} -->
+        {% endfor %}
+    </div>
+    {% else %}
+        <div style="padding: 0 50px;  ;font-size:40px;color:white; text-shadow:3px 3px black">Sorry :( No movies found.</div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">     -->
+    <h1 style="padding: 0 20px;">Trending....</h1>
+        <div style="line-height: 0;
+                                -webkit-column-count:4; /* split it into 5 columns */
+                                -webkit-column-gap:8px; /* give it a 5px gap between columns */
+                                -moz-column-count:4;
+                                -moz-column-gap:8px;
+                                column-count:4;
+                                column-gap:8px;
+                                padding: 0 20px;
+                                backdrop-filter: blur(2000px);">
+            {% for movie in movies %}
+                <div>
+                    <a href="{% url 'movies:detail' slug=movie.slug %}">
+                        <img src="{{movie.thumb.url}}" style="width: 100% ;
+                                                            height: auto ;
+                                                            margin-bottom:  8px;
+                                                            cursor: pointer;
+                                                            border: 1px solid white;" >
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

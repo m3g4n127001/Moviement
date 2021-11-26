@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Moviement</title>
+</head>
+<body style="overflow: scroll;overflow-x:hidden;">
+    <div class="wrapper">
+        <div class="nav-bar">
+            <div class="logo">
+                <a href="{% url 'movies:list' %}"><img src="{% static 'logo.png' %}" ></a>
+            </div>
+            {% if  user.is_authenticated %}
+                <div class="search_bar" style="padding:10px;display:flex;">
+                    <form action="{% url 'movies:search_results' %}" method="GET">
+                        {% csrf_token %}
+                        <input name="que" type="text" placeholder="Search..." style="padding: 10px;
+                                                                                    font-size: 17px;
+                                                                                    border: 1px solid grey;
+                                                                                    background: rgba(0,0,0,0.8);
+                                                                                    color:white">
+                        <button type="submit" style="padding: 10px;
+                                                    font-size: 17px;
+                                                    border: 1px solid grey;
+                                                    background: rgba(255,0,0,0.9);
+                                                    margin-left:-5px">
+                                                    <i class="fa fa-search" style="color: white;
+                                                                                    border-left: none;
+                                                                                    cursor: pointer;">
+                                                    </i>
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
+            <div class="accounts">
+                {% if user.is_authenticated %}
+                    <div class="greeting" style="display: flex;padding:0 25px">
+                        <div class="symbol" style="font-size: 30px;">&#128075</div>
+                        <div class="name_of_user" style="display: inline;margin:-10px 5px"><h2>{{user.username}}</h2></div>
+                    </div>
+                    <form class="logout-form" method="post" action="{% url 'accounts:logout'%}">
+                        {% csrf_token %}
+                        <input class="logout-button" type="submit" value="Logout" style="font-size: 15px;cursor:pointer">
+                    </form>
+                {% else %}
+                    <div class="login-button"><a href="{% url 'accounts:login' %}">Login</a></div>
+                    <div class="signup-button"><a href="{% url 'accounts:signup' %}">Signup</a></div>
+                {% endif %}
+
+            </div>
+        </div>
+        {% if not user.is_authenticated %}
+        <div class="middle-container">
+            <div class="middle-part">
+                <h1>Enjoy the unlimited</h1>
+                <h1>Movies and TV shows</h1>
+                <h1>for free...</h1>
+            </div>
+        </div>
+        {% else %}
+            <div>
+                {% block content %}
+                {% endblock %}
+
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

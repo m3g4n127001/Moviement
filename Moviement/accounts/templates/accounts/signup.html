@@ -1,0 +1,12 @@
+{% extends 'most_basic_layout.html' %}
+
+{% block content %}
+    <div class="form-container">
+        <form class="site-form" action="/accounts/signup/" method="post">
+            <h1 style="color: red;">Signup Form</h1>
+            {% csrf_token %}
+            {{form}}
+            <input class="submit-button" type="submit" value="Singup">
+        </form>
+    </div>
+{% endblock %}

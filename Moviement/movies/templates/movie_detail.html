@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <div class="movie">
+        <div class="movie_details">
+            <h1 class="movie_title">{{movie.title}}</h1>
+            <h2 class="timings">{{movie.duration}} | {{movie.year}}</h2>
+            <h3 class="movie_story">{{movie.story}}</h6>
+    
+        </div>
+        <div class="movie_video">
+            <video width="100%" height="auto" controls>
+                <source src="{{ movie.video.url }}" type="video/mp4">
+            </video>
+        </div>
+    </div>
+{% endblock %}
